@@ -41,7 +41,7 @@
                         {address}
                         method="claim"
                         args={[index, account, amount, merkleProof]}>
-                        <!-- <Success/> -->
+                        <p>Your OLD AXS is now in your wallet, please use <a href="https://bridge.roninchain.com" rel="noopener noreferrer">ronin bridge</a> to upgrade or deposit your OLD AXS</p>
                     </TransactionHandler>
                 {:else}
                     The selected account is not able to claim.
