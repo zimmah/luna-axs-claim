@@ -3,8 +3,7 @@
     import { MerkleDistributor } from '../../../abi/abiExporter'
     import TransactionHandler from '../utils/TransactionHandler.svelte'
     
-    const url = 'http://localhost:4000/getdata'
-    // const url = 'https://mysterious-oasis-55905.herokuapp.com/getdata'
+    const url = 'https://mysterious-oasis-55905.herokuapp.com/getdata'
 
     export let signer:Signer
     export const address:string = '0x93A0d0b23C3D045F395e26850c1B64df7F3Ab783'
