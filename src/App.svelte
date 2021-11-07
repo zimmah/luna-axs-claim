@@ -11,6 +11,8 @@
     {/if}
 </main>
 
+<footer>Community project made with ❤️ by zimmah</footer>
+
 <style>
     main {
         text-align: center;
@@ -23,5 +25,15 @@
         main {
             max-width: none;
         }
+    }
+
+    footer {
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;            /* Footer height */
+        background-color: #ff3e00;
+        color: white;
     }
 </style>

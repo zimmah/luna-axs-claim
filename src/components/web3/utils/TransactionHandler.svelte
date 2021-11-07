@@ -1,22 +1,17 @@
 <script lang="ts">
     import { ethers, Signer } from "ethers"
     import type { ContractInterface } from '@ethersproject/contracts/lib/index.d'
-
     export let address:string
     export let abi:ContractInterface
     export let signer:Signer
     export let method:string
     export let args:Array<any>
-    export let buttonText:string = 'Send' 
-
+    export let buttonText:string = "Attempt to claim"
     let transaction:Promise<any>
-
     $: contract = new ethers.Contract(address, abi, signer)
-
     function call():void{
         transaction = contract[method](...args)
     }
-
     function reset():void{
         transaction = undefined
     }
@@ -41,7 +36,7 @@
                 Transaction pending...
             {:then receipt}
                 <p>Transaction confirmed.</p>
-                <p><a href="https://ropsten.etherscan.io/tx/{receipt.transactionHash}" target="_blank" rel="noreferrer noopener" >View on Etherscan</a></p>
+                <p><a href="https://etherscan.io/tx/{receipt.transactionHash}" target="_blank" rel="noreferrer noopener" >View on Etherscan</a></p>
                 <slot></slot>
             {:catch error}
                 <p>Something went wrong: {error.message}</p>
@@ -51,7 +46,6 @@
                 <p>Transaction rejected by user.</p>
             {:else}
                 <p>Something went wrong: {error.message}</p>
-                <p>Do you have WETH on this network?</p>
             {/if}
             <button on:click={reset}>Try again</button>
         {/await}

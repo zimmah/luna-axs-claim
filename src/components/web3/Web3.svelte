@@ -1,20 +1,15 @@
 <script lang="ts">
     import {ethers, Signer} from 'ethers'
-import SendWeth from './interactions/sendWETH.svelte'
+    import { MerkleDistributor } from '../../abi/abiExporter'
+    import Claim from './interactions/Claim.svelte'
     import WrongNetwork from './WrongNetwork.svelte'
 
-    const networks = {
-        1: 'Main Ethereum Network',
-        3: 'Ropsten Test Network',
-        4: 'Rinkeby Test Network',
-        5: 'Görli Test Network',
-        42: 'Kovan Test Network',
-    }
-
-    const signer:Signer = (new ethers.providers.Web3Provider(window.ethereum)).getSigner()
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    export const signer:Signer = provider.getSigner()
+    const merkleDistributor = new ethers.Contract('0x93a0d0b23c3d045f395e26850c1b64df7f3ab783', MerkleDistributor, provider)
 
     let currentAccount:string
-    let connectedNetwork:string
+    $: claimed = merkleDistributor.callStatic.claimed(currentAccount || '0x0000000000000000000000000000000000000000')
 
     window.ethereum
     .on("accountsChanged", handleAccountsChanged)
@@ -24,13 +19,12 @@ import SendWeth from './interactions/sendWETH.svelte'
     .then(handleAccountsChanged)
     .catch(err => console.error(err))
         
-    function handleAccountsChanged(accounts:Array<string>):void {
+    async function handleAccountsChanged(accounts:Array<string>):Promise<void> {
         if (accounts.length === 0) {
             console.log("Please connect to MetaMask")
             currentAccount = undefined
         } else if (accounts[0] !== currentAccount) {
             currentAccount = accounts[0]
-            connectedNetwork = networks[Number(window.ethereum.chainId)]
         }
     }
 
@@ -51,11 +45,15 @@ import SendWeth from './interactions/sendWETH.svelte'
 </script>
 
 <main>
-    {#if Number(window.ethereum.chainId) > 1}
-        <h1>Hello web3!</h1>
+    {#if Number(window.ethereum.chainId) === 1}
+        <h1>LUNA to AXS claiming tool</h1>
         {#if currentAccount}
-            <p>Connected to {currentAccount} at the {connectedNetwork}</p>
-            <SendWeth {signer} />
+            {#await claimed then hasClaimed}
+                <p>Your account {currentAccount} has {hasClaimed ? 'already claimed' : 'not claimed'}</p>
+                {#if !hasClaimed}
+                    <Claim {signer} />
+                {/if}
+            {/await}
         {:else}
             <button on:click={connect}>Connect</button>
         {/if}

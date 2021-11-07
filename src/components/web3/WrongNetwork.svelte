@@ -2,7 +2,7 @@
 
 <main>
     <h1>You are on the wrong network!</h1>
-    <p>Please switch to a test network.</p>
+    <p>Please switch to ethereum main network.</p>
 </main>
 
 <style>

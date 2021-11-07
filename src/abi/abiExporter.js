@@ -1,3 +1,3 @@
-import IERC20 from './IERC20.json'
+import MerkleDistributor from './MerkleDistributor.json'
 
-export {IERC20}
+export {MerkleDistributor}
