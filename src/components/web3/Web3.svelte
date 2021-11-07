@@ -48,7 +48,9 @@
     {#if Number(window.ethereum.chainId) === 1}
         <h1>LUNA to AXS claiming tool</h1>
         {#if currentAccount}
-            {#await claimed then hasClaimed}
+            {#await claimed}
+                checking if your account has claimed before, please wait
+            {:then hasClaimed}
                 <p>Your account {currentAccount} has {hasClaimed ? 'already claimed' : 'not claimed'}</p>
                 {#if !hasClaimed}
                     <Claim {signer} />

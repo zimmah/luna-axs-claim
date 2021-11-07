@@ -29,7 +29,7 @@
 <main>
     {#await signer.getAddress() then account}
         {#await requestData(account)}
-            waiting
+            checking for eligibility, please wait
         {:then result}
             {#await result.json() then json} 
                 {#if json.success}
