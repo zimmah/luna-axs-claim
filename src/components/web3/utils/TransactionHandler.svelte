@@ -33,7 +33,7 @@
             Please confirm the transaction.
         {:then result}
             {#await result.wait()}
-                Transaction pending...
+                Transaction pending, please wait... (please don't leave or refresh the page)
             {:then receipt}
                 <p>Transaction confirmed.</p>
                 <p><a href="https://etherscan.io/tx/{receipt.transactionHash}" target="_blank" rel="noreferrer noopener" >View on Etherscan</a></p>

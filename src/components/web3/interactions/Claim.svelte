@@ -34,7 +34,6 @@
             {#await result.json() then json} 
                 {#if json.success}
                     {setArgs(json.data.index, json.data.balance, json.data.proof) && ""}
-                    {console.log(json)}
                     <TransactionHandler 
                         abi={MerkleDistributor}
                         {signer}
