@@ -6,7 +6,7 @@
     export let signer:Signer
     export let method:string
     export let args:Array<any>
-    export let buttonText:string = "Attempt to claim"
+    export let buttonText:string = "claim"
     let transaction:Promise<any>
     $: contract = new ethers.Contract(address, abi, signer)
     function call():void{
